@@ -1,4 +1,6 @@
 import Head from "next/head";
+import Create from "../components/Forms/Create/Create";
+import Amount from "../components/Forms/Inputs/Amount";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -10,7 +12,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className=""></main>
+      <main className="container ">
+        <h1 className="text-5xl font-semibold">Welcome to TaskHub</h1>
+        <p className="text-3xl font-light">Empowering Employee Productivity</p>
+
+        {/* Creating a employee */}
+        <section className="">
+          <Create></Create>
+        </section>
+      </main>
     </>
   );
 }
