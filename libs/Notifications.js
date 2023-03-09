@@ -10,23 +10,6 @@ const promiseOptions = {
   className: "",
   position: toast.POSITION.TOP_CENTER,
 };
-const optionsTest = {
-  position: "top-right",
-  autoClose: -1,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  className: "text-dark",
-};
-
-// export const toastProduct = (productName) => {
-//   toast(<ProductNotif productName={productName} />, optionsTest);
-// };
-export const toastProduct = (productName) => {
-  toast.success(`${productName} беше добавен успешно в количката`, options);
-};
 
 export const toastPromise = (message) => {
   toast.loading(message, promiseOptions);
