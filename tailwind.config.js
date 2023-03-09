@@ -39,9 +39,6 @@ module.exports = {
     container: {
       center: true,
     },
-    extend: {
-      primaryBlue: customColors.primaryBlue,
-    },
   },
   plugins: [
     function ({ addComponents }) {
@@ -51,6 +48,5 @@ module.exports = {
         },
       });
     },
-    require("tailwind-scrollbar"),
   ],
 };
