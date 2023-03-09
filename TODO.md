@@ -1,3 +1,6 @@
+!IMPORTANT:
+SOME CODE IS COPIED FROM MY PROJECTS!
+
 Tasks: Create app which main subject is to write employees and their tasks
 
 Crud operations for employee
