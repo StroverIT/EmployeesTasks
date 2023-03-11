@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
 // styles
 import style from "./create.module.css";
 
-const Create = ({ onSubmit, children }) => {
+const Create = ({ className, onSubmit, children, title }) => {
   return (
     <form
       onSubmit={onSubmit}
-      className={`${style.form_wrapper}  p-11 bg-white shadow-xl  rounded-[1.3rem] relative border-2 border-white `}
+      className={`${style.form_wrapper} box-shadow  p-10 bg-white   rounded-[1.3rem] relative border-2 border-white `}
     >
-      <div className="relative z-10">{children}</div>
+      <h2 className="pb-3 text-xl font-semibold">{title}</h2>
+      <div className={`relative z-10 ${className}`}>{children}</div>
     </form>
   );
 };
