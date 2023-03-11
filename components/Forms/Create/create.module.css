@@ -1,0 +1,8 @@
+.form_wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 2px dashed hsl(185 26% 9%);
+  border-radius: calc(25px * 0.6);
+  /* z-index: -1; */
+}
