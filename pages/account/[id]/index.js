@@ -62,16 +62,25 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
     setTaskLoading(false);
   };
   const completeTaskHandler = async (taskId) => {
-    const sendData = { taskId, employeeId: data._id };
-    const res = await completeTask(sendData);
+    try {
+      const sendData = { taskId, employeeId: data._id };
+      const res = await completeTask(sendData);
 
-    if (res.message) {
-      toastSuccess(res.message);
+      if (res.message) {
+        toastSuccess(res.message);
+      }
+      if (res.error) {
+        toastError(res.error);
+      }
+      router.push({ pathname: router.asPath }, undefined, {
+        scroll: false,
+        shallow: false,
+      });
+    } catch (e) {
+      if (e) {
+        console.log(e);
+      }
     }
-    if (res.error) {
-      toastError(res.error);
-    }
-    router.push({ pathname: router.pathname }, undefined, { scroll: false });
   };
 
   return (
