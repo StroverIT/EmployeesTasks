@@ -97,7 +97,7 @@ const Input = ({
           {dropOpen && (
             <div
               id="dropdown"
-              className="z-10 absolute top-12 bg-white divide-y divide-gray-100 rounded-lg shadow-2xl  dark:bg-gray-700 w-full h-56 overflow-auto"
+              className="z-10 absolute top-12 bg-white divide-y divide-gray-100 rounded-lg shadow-2xl  dark:bg-gray-700 w-full max-h-56 overflow-auto"
             >
               <ul
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
