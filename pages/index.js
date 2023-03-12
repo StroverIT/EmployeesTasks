@@ -34,7 +34,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
           )}
           {totalEmployeeLength > 0 && <StatisticForTheYear />}
           {/* Emloyee view details */}
-          {totalEmployeeLength > 0 && (
+          {totalEmployeeLength > 0 && employees && (
             <section className="md:col-span-2">
               <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
