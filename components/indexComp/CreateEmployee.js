@@ -43,7 +43,7 @@ const CreateEmployee = () => {
     <div>
       <Create
         title="Create employee"
-        className="grid grid-cols-2 gap-x-10 gap-y-3"
+        className="lg:grid  lg:grid-cols-2 gap-x-10 gap-y-3"
         onSubmit={createHandler}
       >
         {createEmployeeInputs.map((input) => {
@@ -51,6 +51,7 @@ const CreateEmployee = () => {
             <Input
               {...input}
               key={input._id}
+              className="max-lg:mt-4"
               onChange={inputHandler}
               value={employeeInputs[input.name]}
             />
@@ -58,7 +59,7 @@ const CreateEmployee = () => {
         })}
         <Button
           text="Create employee"
-          className="col-start-1"
+          className="col-start-1 mt-5 w-full"
           type="submit"
           isLoading={isLoading}
         />
