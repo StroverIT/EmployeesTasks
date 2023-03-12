@@ -60,8 +60,8 @@ const EmployeeAccount = ({ data }) => {
     setTaskLoading(false);
   };
   const completeTaskHandler = async (taskId) => {
-    const data = { taskId, employeeId: data._id };
-    const res = await completeTask(data);
+    const sendData = { taskId, employeeId: data._id };
+    const res = await completeTask(sendData);
 
     if (res.message) {
       toastSuccess(res.message);
