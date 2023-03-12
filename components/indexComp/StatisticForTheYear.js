@@ -36,21 +36,6 @@ const options = {
   },
 };
 
-const labels = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 const StatisticForTheYear = () => {
   const [employeesAndTasks, setEmployeesAndTasks] = useState(null);
   useEffect(() => {
@@ -58,7 +43,7 @@ const StatisticForTheYear = () => {
       const res = await topFiveTasksYearly();
 
       setEmployeesAndTasks({
-        labels,
+        labels: months,
         datasets: res.data,
       });
     })();
