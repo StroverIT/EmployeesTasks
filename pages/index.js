@@ -58,7 +58,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   await connectMongo();
   const totalEmployeeLength = await EmployeeDb.count();
   const employees = await EmployeeDb.find({});
