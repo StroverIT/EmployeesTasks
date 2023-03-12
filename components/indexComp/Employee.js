@@ -25,7 +25,6 @@ const Employee = ({ data, type, isFullData }) => {
   };
 
   let range, onClick, text;
-  console.log(tasks);
   if (tasks.completed == 0) {
     range = 0;
   } else {
