@@ -39,13 +39,14 @@ const Employee = ({ data, type, isFullData }) => {
     router.push("/", undefined, { scroll: false });
   };
 
-  // ------ DELETE -------
+  // ------ Edit -------
   const editHandler = async () => {
     setEditLoading(true);
     const res = await edit(employeeInputs, data._id);
     if (res.message) {
       toastSuccess(res.message);
       setEdit(false);
+      console.log(router.pathname);
       router.push(router.pathname, undefined, { scroll: false });
     }
     if (res.error) {
