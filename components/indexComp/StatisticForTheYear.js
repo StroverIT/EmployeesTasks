@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { topFiveTasksYearly } from "../../utils/task";
+import { months } from "../../utils/helper";
 
 ChartJS.register(
   CategoryScale,
@@ -49,32 +51,27 @@ const labels = [
   "December",
 ];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Emil Zlatinov",
-      data: [100, 200, 300, 500, 600, 0, 100, 200, 1000, 1565],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Ivan Petrov",
-      data: [100, 200, 800, 500, 200, 700, 100, 900, 1000, 1100, 1200],
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
 const StatisticForTheYear = () => {
+  const [employeesAndTasks, setEmployeesAndTasks] = useState(null);
+  useEffect(() => {
+    (async function () {
+      const res = await topFiveTasksYearly();
+
+      setEmployeesAndTasks({
+        labels,
+        datasets: res.data,
+      });
+    })();
+  }, []);
   return (
     <section>
       <h3 className="mb-10 text-4xl font-semibold">Statistics for the year</h3>
 
-      <section className="box-shadow border-[3px] border-blue-300 rounded-[1.3rem]  py-6  flex-center">
-        <Line options={options} data={data} />
-      </section>
+      {employeesAndTasks && (
+        <section className="box-shadow border-[3px] border-blue-300 rounded-[1.3rem]  py-6  flex-center">
+          <Line options={options} data={employeesAndTasks} />
+        </section>
+      )}
     </section>
   );
 };
