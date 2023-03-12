@@ -21,6 +21,10 @@ const EmployeeSchema = new Schema({
     type: Number,
     required: true,
   },
+  color: {
+    type: String,
+    required: true,
+  },
   tasks: { type: Schema.Types.ObjectId, ref: "Task" },
   createdAt: {
     type: String,
