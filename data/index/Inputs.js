@@ -62,6 +62,7 @@ export const createTaskInput = [
   },
   {
     name: "dueDate",
+    className: "max-lg:my-4",
     type: "date",
     placeholder: "",
     label: "Due date",
