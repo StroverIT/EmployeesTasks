@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const Input = ({
   className = null,
+  isLabel = true,
   name,
   type,
   placeholder,
@@ -31,14 +32,16 @@ const Input = ({
   };
   return (
     <div className={`${className}`}>
-      <label
-        htmlFor={name}
-        className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
-          type == "dropdown" ? "invisible" : ""
-        }`}
-      >
-        {label}
-      </label>
+      {isLabel && (
+        <label
+          htmlFor={name}
+          className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
+            type == "dropdown" ? "invisible" : ""
+          }`}
+        >
+          {label}
+        </label>
+      )}
       {!isLargeText && type != "dropdown" && (
         <input
           type={type}
