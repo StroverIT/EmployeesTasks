@@ -1,7 +1,22 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { toastSuccess } from "../../libs/Notifications";
+import { del } from "../../utils/task";
 import Button from "../Forms/Buttons/Default";
 
 const Table = ({ data, color, completeTaskHandler }) => {
+  const router = useRouter();
+
+  const deleteHandler = async (id) => {
+    const res = await del(id);
+    if (res.message) {
+      toastSuccess(res.message);
+      router.push(router.asPath, undefined, { scroll: false });
+    }
+    if (res.error) {
+      toastError(res.error);
+    }
+  };
   return (
     <section
       className={`grid grid-cols-[20%50%10%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
@@ -39,7 +54,12 @@ const Table = ({ data, color, completeTaskHandler }) => {
                 color={"#028A0F"}
                 onClick={() => completeTaskHandler(data._id)}
               />
-              <Button text="Delete" className="w-3/4" color={"#FF2400"} />
+              <Button
+                text="Delete"
+                className="w-3/4"
+                color={"#FF2400"}
+                onClick={() => deleteHandler(data._id)}
+              />
             </div>
           </>
         );
