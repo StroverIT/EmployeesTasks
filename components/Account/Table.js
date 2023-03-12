@@ -4,12 +4,14 @@ import Button from "../Forms/Buttons/Default";
 const Table = ({ data, color, completeTaskHandler }) => {
   return (
     <section
-      className={`grid grid-cols-[20%60%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
+      className={`grid grid-cols-[20%50%10%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
     >
       {/* Header */}
       <div className=" font-bold text-xl">Title</div>
       <div className=" font-bold text-xl">Description</div>
       <div className=" font-bold text-xl">Due Date</div>
+      <div className=" font-bold text-xl">Assignee</div>
+
       <div className="invisible">Edit,Delete,Complete</div>
 
       {data.map((data) => {
@@ -25,6 +27,9 @@ const Table = ({ data, color, completeTaskHandler }) => {
 
             <div className=" py-4  bg-[#f5f8f5] flex-center h-full">
               {data.dueDate}
+            </div>
+            <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full">
+              {data.assignee}
             </div>
             <div className="bg-[#f5f8f5] h-full flex-center w-full flex-col gap-y-5 py-5 font-semibold">
               <Button text="Edit" className="w-3/4" color={color} />
