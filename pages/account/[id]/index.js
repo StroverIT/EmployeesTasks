@@ -24,7 +24,7 @@ import { default as EmployeeDb } from "../../../db/models/Employee";
 import { ObjectId } from "mongodb";
 import { toastError, toastSuccess } from "../../../libs/Notifications";
 
-const EmployeeAccount = ({ data }) => {
+const EmployeeAccount = ({ data, namesAndIds }) => {
   const router = useRouter();
 
   const [taskInput, setTaskInput] = useState(inputsToState(createTaskInput));
@@ -71,6 +71,7 @@ const EmployeeAccount = ({ data }) => {
     }
     router.push({ pathname: router.asPath }, undefined, { scroll: false });
   };
+
   return (
     <>
       <Head>
@@ -142,6 +143,7 @@ const EmployeeAccount = ({ data }) => {
             <Table
               data={data.tasks.filter((task) => !task.isCompleted)}
               color={data.color}
+              namesAndIds={namesAndIds}
               completeTaskHandler={completeTaskHandler}
             />
           )}
@@ -160,9 +162,16 @@ export async function getServerSideProps(context) {
   const data = await EmployeeDb.findOne({ _id: new ObjectId(id) }).populate(
     "tasks"
   );
+  const employees = await EmployeeDb.find({});
+
+  const namesAndIds = employees.map((employee) => {
+    return { name: employee.fullName, _id: employee._id };
+  });
+
   return {
     props: {
       data: JSON.parse(JSON.stringify(data)),
+      namesAndIds: JSON.parse(JSON.stringify(namesAndIds)),
     },
   };
 }
