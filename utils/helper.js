@@ -43,7 +43,7 @@ export const inputsToState = (data) => {
 
 export const setInputHandler = (e, setState) => {
   const name = e.target.name;
-  let value = e.target.value;
+  const value = e.target.value;
 
   setState((prevState) => ({
     ...prevState,
