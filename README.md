@@ -59,6 +59,3 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 1. TOP 5 statistic for the year - Most hardworking one is showing on the statistic, where every month is showing his/her monthly completed tasks
 2. On edit, can give the task to another employee - Let's say I am junior and was brave and took more than I can, and now I need help, this is perfect for someone to give me a hand
 
-
-
-Live demo: [Click here](http://185.123.188.214:8092/)
