@@ -1,22 +1,8 @@
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { toastSuccess } from "../../libs/Notifications";
-import { del } from "../../utils/task";
-import Button from "../Forms/Buttons/Default";
+import React from "react";
 
-const Table = ({ data, color, completeTaskHandler }) => {
-  const router = useRouter();
+import TaskTable from "./TaskTable";
 
-  const deleteHandler = async (id) => {
-    const res = await del(id);
-    if (res.message) {
-      toastSuccess(res.message);
-      router.push(router.asPath, undefined, { scroll: false });
-    }
-    if (res.error) {
-      toastError(res.error);
-    }
-  };
+const Table = ({ data, color, completeTaskHandler, namesAndIds }) => {
   return (
     <section
       className={`grid grid-cols-[20%50%10%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
@@ -31,37 +17,13 @@ const Table = ({ data, color, completeTaskHandler }) => {
 
       {data.map((data) => {
         return (
-          <>
-            <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full">
-              {data.title}
-            </div>
-
-            <div className="px-6 py-4 bg-[#f5f8f5]  flex-center flex-wrap h-full">
-              {data.description}
-            </div>
-
-            <div className=" py-4  bg-[#f5f8f5] flex-center h-full">
-              {data.dueDate}
-            </div>
-            <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full">
-              {data.assignee}
-            </div>
-            <div className="bg-[#f5f8f5] h-full flex-center w-full flex-col gap-y-5 py-5 font-semibold">
-              <Button text="Edit" className="w-3/4" color={color} />
-              <Button
-                text="Complete"
-                className="w-3/4"
-                color={"#028A0F"}
-                onClick={() => completeTaskHandler(data._id)}
-              />
-              <Button
-                text="Delete"
-                className="w-3/4"
-                color={"#FF2400"}
-                onClick={() => deleteHandler(data._id)}
-              />
-            </div>
-          </>
+          <TaskTable
+            key={data._id}
+            data={data}
+            color={color}
+            namesAndIds={namesAndIds}
+            completeTaskHandler={completeTaskHandler}
+          />
         );
       })}
     </section>
