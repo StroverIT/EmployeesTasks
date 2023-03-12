@@ -54,7 +54,8 @@ export const createTaskInput = [
   {
     name: "assignee",
     type: "dropdown",
-    list: [],
+    listValue: "Assignee",
+
     placeholder: "Emil Zlatinov",
     label: "Assignee",
     _id: "03",
