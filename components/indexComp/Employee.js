@@ -37,7 +37,7 @@ const Employee = ({ data, type, isFullData }) => {
   }
   return (
     <section
-      className={`box-shadow border-[3px]  rounded-[1.3rem] px-10 py-6  w-full`}
+      className={`box-shadow border-[3px]  rounded-[1.3rem] px-10 pt-10 pb-8  w-full relative`}
       style={{
         borderColor: data.color,
         color: data.color,
@@ -90,6 +90,16 @@ const Employee = ({ data, type, isFullData }) => {
           className={`w-44 `}
           color={data.color}
           onClick={onClick}
+        />
+      </div>
+      <div className="absolute -top-2 -right-2">
+        <Button
+          icon="trash"
+          iconPos="left"
+          className={`w-12 `}
+          color={"#df6b62"}
+          onClick={onClick}
+          classNameIcon="text-xl"
         />
       </div>
     </section>
