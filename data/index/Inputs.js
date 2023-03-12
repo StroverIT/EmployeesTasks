@@ -45,19 +45,28 @@ export const createEmployeeInputs = [
 export const createTaskInput = [
   {
     name: "title",
+    className: "col-span-2",
     type: "text",
     placeholder: "Submit button is unable to fetch data in index menu",
     label: "Title",
     _id: "01",
   },
-
   {
     name: "assignee",
-    type: "text",
+    type: "dropdown",
+    list: [],
     placeholder: "Emil Zlatinov",
     label: "Assignee",
     _id: "03",
   },
+  {
+    name: "dueDate",
+    type: "date",
+    placeholder: "",
+    label: "Due date",
+    _id: "04",
+  },
+
   {
     isLargeText: true,
     className: "col-span-2",
@@ -70,12 +79,5 @@ export const createTaskInput = [
       rows: 4,
     },
     _id: "02",
-  },
-  {
-    name: "dueDate",
-    type: "date",
-    placeholder: "",
-    label: "Due date",
-    _id: "04",
   },
 ];
