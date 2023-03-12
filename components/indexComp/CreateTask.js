@@ -16,16 +16,15 @@ import { inputsToState, setInputHandler } from "../../utils/helper";
 import { create } from "../../utils/task";
 import { toastError, toastSuccess } from "../../libs/Notifications";
 
+const dropValInput = createTaskInput.filter((data) => {
+  if (data.listValue) return true;
+})[0];
 const CreateTask = ({ namesAndIds }) => {
   const router = useRouter();
   // States
   const [taskInput, setTaskInput] = useState(inputsToState(createTaskInput));
   const [isLoading, setLoading] = useState(false);
-  const [dropVal, setDropVal] = useState(
-    createTaskInput.filter((data) => {
-      if (data.listValue) return true;
-    })[0]
-  );
+  const [dropVal, setDropVal] = useState(dropValInput);
 
   // Client Handlers
   const inputHandler = (e) => setInputHandler(e, setTaskInput);
@@ -45,6 +44,7 @@ const CreateTask = ({ namesAndIds }) => {
     const res = await create({ ...taskInput });
     if (res.message) {
       toastSuccess(res.message);
+      setDropVal(dropValInput);
       setTaskInput(inputsToState(createTaskInput));
       router.push({ pathname: router.asPath }, undefined, { scroll: false });
     }
