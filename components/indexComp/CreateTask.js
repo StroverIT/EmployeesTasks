@@ -55,33 +55,35 @@ const CreateTask = ({ namesAndIds }) => {
   };
   return (
     // Form
-    <Create
-      title="Add New Task"
-      className="grid grid-cols-2 gap-x-10 gap-y-3"
-      onSubmit={createHandler}
-    >
-      {/* This is a bad practice new index !!! */}
-      {createTaskInput.map((input, index) => {
-        return (
-          <Input
-            {...input}
-            key={index}
-            onChange={inputHandler}
-            listClick={dropHandler}
-            value={taskInput[input.name]}
-            listValue={dropVal || null}
-            listHandler={dropHandler}
-            list={namesAndIds || []}
-          />
-        );
-      })}
-      <Button
-        text="Add task"
-        className="col-span-1 row-start-4"
-        type="submit"
-        isLoading={isLoading}
-      />
-    </Create>
+    <div>
+      <Create
+        title="Add New Task"
+        className="grid grid-cols-2 gap-x-10 gap-y-3"
+        onSubmit={createHandler}
+      >
+        {/* This is a bad practice new index !!! */}
+        {createTaskInput.map((input, index) => {
+          return (
+            <Input
+              {...input}
+              key={index}
+              onChange={inputHandler}
+              listClick={dropHandler}
+              value={taskInput[input.name]}
+              listValue={dropVal || null}
+              listHandler={dropHandler}
+              list={namesAndIds || []}
+            />
+          );
+        })}
+        <Button
+          text="Add task"
+          className="col-span-1 row-start-4"
+          type="submit"
+          isLoading={isLoading}
+        />
+      </Create>
+    </div>
   );
 };
 

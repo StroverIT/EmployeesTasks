@@ -40,28 +40,30 @@ const CreateEmployee = () => {
     setLoading(false);
   };
   return (
-    <Create
-      title="Create employee"
-      className="grid grid-cols-2 gap-x-10 gap-y-3"
-      onSubmit={createHandler}
-    >
-      {createEmployeeInputs.map((input) => {
-        return (
-          <Input
-            {...input}
-            key={input._id}
-            onChange={inputHandler}
-            value={employeeInputs[input.name]}
-          />
-        );
-      })}
-      <Button
-        text="Create employee"
-        className="col-start-1"
-        type="submit"
-        isLoading={isLoading}
-      />
-    </Create>
+    <div>
+      <Create
+        title="Create employee"
+        className="grid grid-cols-2 gap-x-10 gap-y-3"
+        onSubmit={createHandler}
+      >
+        {createEmployeeInputs.map((input) => {
+          return (
+            <Input
+              {...input}
+              key={input._id}
+              onChange={inputHandler}
+              value={employeeInputs[input.name]}
+            />
+          );
+        })}
+        <Button
+          text="Create employee"
+          className="col-start-1"
+          type="submit"
+          isLoading={isLoading}
+        />
+      </Create>
+    </div>
   );
 };
 

@@ -26,7 +26,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
         <p className="text-4xl font-light">Empowering Employee Productivity</p>
 
         {/* Creating a employee */}
-        <section className="grid gap-10 mt-16 md:grid-cols-2">
+        <section className="grid gap-10 mt-16 grid-cols-1 md:grid-cols-2">
           <CreateEmployee />
           {totalEmployeeLength > 0 && <CreateTask namesAndIds={namesAndIds} />}
           {totalEmployeeLength > 0 && (
@@ -35,9 +35,9 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
           {totalEmployeeLength > 0 && <StatisticForTheYear />}
           {/* Emloyee view details */}
           {totalEmployeeLength > 0 && (
-            <section className="col-span-2">
+            <section className="md:col-span-2">
               <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {employees.map((employee) => {
                   return (
                     <Employee key={employee._id} data={employee} type="view" />
