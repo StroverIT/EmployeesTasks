@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { GiReturnArrow } from "react-icons/gi";
 import { BsFillTrashFill } from "react-icons/bs";
-
+import { HiX } from "react-icons/hi";
 const Button = ({
   text,
   onClick,
@@ -16,7 +16,7 @@ const Button = ({
   classNameIcon,
   iconPos,
   classNameText,
-  isLoading,
+  isLoading = false,
 }) => {
   const themeColors = {
     black: ["bg-gray-900", "rgb(17 24 39)"],
@@ -28,6 +28,7 @@ const Button = ({
   const icons = {
     giReturn: <GiReturnArrow />,
     trash: <BsFillTrashFill />,
+    hix: <HiX />,
   };
   return (
     <motion.button
@@ -50,14 +51,18 @@ const Button = ({
         transition: { type: "spring", stiffness: 300, duration: 2 },
       }}
     >
-      {icon && iconPos == "left" && (
-        <div className={classNameIcon}>{icons[icon]}</div>
-      )}
-      <div className={`${classNameText} flex-center`}>
-        {isLoading ? <div className="loader"> </div> : text}
-      </div>
-      {icon && iconPos == "right" && (
-        <div className={classNameIcon}>{icons[icon]}</div>
+      {isLoading ? (
+        <div className="loader"></div>
+      ) : (
+        <>
+          {icon && iconPos == "left" && (
+            <div className={classNameIcon}>{icons[icon]}</div>
+          )}
+          <div className={`${classNameText} flex-center`}>{text}</div>
+          {icon && iconPos == "right" && (
+            <div className={classNameIcon}>{icons[icon]}</div>
+          )}
+        </>
       )}
     </motion.button>
   );
