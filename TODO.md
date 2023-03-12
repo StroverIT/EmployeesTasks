@@ -20,7 +20,7 @@ Crud operations for tasks
 
 [x] Edit Tasks
 [x] Assigne give it to another employee
-[] Make responsive account
+[x] Make responsive account
 
 [] Github documentation for the app
 [] Deploy the app in vps using nginx and pm2
