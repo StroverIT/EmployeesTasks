@@ -1,12 +1,12 @@
 import Head from "next/head";
 import React from "react";
-import Button from "../../components/Forms/Buttons/Default";
-import Create from "../../components/Forms/Create/Create";
-import Input from "../../components/Forms/Inputs/Default";
-import Employee from "../../components/indexComp/Employee";
-import Table from "../../data/employee/Table";
-import { createTaskInput } from "../../data/index/Inputs";
-import { generateRandomColor } from "../../utils/helper";
+import Button from "../../../components/Forms/Buttons/Default";
+import Create from "../../../components/Forms/Create/Create";
+import Input from "../../../components/Forms/Inputs/Default";
+import Employee from "../../../components/indexComp/Employee";
+import Table from "../../../data/employee/Table";
+import { createTaskInput } from "../../../data/index/Inputs";
+import { generateRandomColor } from "../../../utils/helper";
 const Id = () => {
   const name = "Emil Zlatinov";
   const data = [
