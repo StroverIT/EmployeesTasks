@@ -66,7 +66,7 @@ const Input = ({
             type="button"
             onClick={() => setDropOpen(!dropOpen)}
           >
-            {listValue.name}
+            {listValue.listValue || listValue.name}
             <svg
               className="w-4 h-4 ml-2"
               aria-hidden="true"
