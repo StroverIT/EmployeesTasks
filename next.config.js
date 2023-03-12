@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  matcher: ["/", "/:notunderscore((?!_next).+)"],
-  reactStrictMode: false,
+  reactStrictMode: true,
   swcMinify: true,
 };
 
