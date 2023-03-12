@@ -70,7 +70,7 @@ export const data = {
 const StatisticForTheYear = () => {
   return (
     <section>
-      <h3 className="mb-10 text-4xl font-semibold">Statistic for the year</h3>
+      <h3 className="mb-10 text-4xl font-semibold">Statistics for the year</h3>
 
       <section className="box-shadow border-[3px] border-blue-300 rounded-[1.3rem]  py-6  flex-center">
         <Line options={options} data={data} />
