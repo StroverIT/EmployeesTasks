@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { GiReturnArrow } from "react-icons/gi";
+import { BsFillTrashFill } from "react-icons/bs";
 
 const Button = ({
   text,
@@ -26,6 +27,7 @@ const Button = ({
   }`;
   const icons = {
     giReturn: <GiReturnArrow />,
+    trash: <BsFillTrashFill />,
   };
   return (
     <motion.button
@@ -42,7 +44,7 @@ const Button = ({
       onClick={onClick}
       className={`${className} ${
         isBg && themeColors[theme][0]
-      } text-white py-2 rounded-md  flex-center`}
+      } text-white py-2 rounded-md  flex-center `}
       whileHover={{
         boxShadow: boxShadowStyle,
         transition: { type: "spring", stiffness: 300, duration: 2 },
