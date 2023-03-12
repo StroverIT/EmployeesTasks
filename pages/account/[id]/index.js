@@ -1,35 +1,80 @@
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+
+// Components
 import Button from "../../../components/Forms/Buttons/Default";
 import Create from "../../../components/Forms/Create/Create";
 import Input from "../../../components/Forms/Inputs/Default";
 import Employee from "../../../components/indexComp/Employee";
-import Table from "../../../data/employee/Table";
-import { createTaskInput } from "../../../data/index/Inputs";
-import { generateRandomColor } from "../../../utils/helper";
-const Id = () => {
-  const name = "Emil Zlatinov";
-  const data = [
-    {
-      title: "Test",
-      description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa at vel laudantium sed inventore, natus qui maiores. Nam et, necessitatibus iure, fuga possimus, sunt totam nisi iusto accusantium alias harum?`,
-      dueDate: "12/02/2023",
-      _id: 123,
-    },
-    {
-      title: "Testsavasdasasdadw",
-      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita suscipit iure quos mollitia aut molestiae. Nihil atque ullam deleniti vel illum qui voluptas, reiciendis magnam accusamus vitae! Temporibus, tempore laudantium!
-      Dignissimos vitae sit consectetur magni voluptatibus corrupti ullam nulla veritatis dolore necessitatibus facilis error, facere provident. Saepe consequatur quibusdam facilis quam. Laborum, rem possimus? Debitis, ducimus doloribus! Et, quae quaerat.`,
-      dueDate: "12/02/2023",
-      _id: 1234,
-    },
-  ];
-  const color = generateRandomColor(1);
+import Table from "../../../components/Account/Table";
 
+// Helpers
+import { inputsToState, setInputHandler } from "../../../utils/helper";
+
+// Data
+import { createTaskInput } from "../../../data/index/Inputs";
+
+// API
+import { completeTask, create } from "../../../utils/task";
+
+// DB
+import { connectMongo } from "../../../db/connectDb";
+import { default as EmployeeDb } from "../../../db/models/Employee";
+import { ObjectId } from "mongodb";
+import { toastError, toastSuccess } from "../../../libs/Notifications";
+
+const EmployeeAccount = ({ data }) => {
+  const router = useRouter();
+
+  const [taskInput, setTaskInput] = useState(inputsToState(createTaskInput));
+  const [taskLoading, setTaskLoading] = useState(false);
+
+  const [dropVal, setDropVal] = useState({
+    name: data.fullName,
+    _id: data._id,
+  });
+
+  const inputHandler = (e) => setInputHandler(e, setTaskInput);
+
+  const createHandler = async (e) => {
+    e.preventDefault();
+    setTaskLoading(true);
+    const data = {
+      ...taskInput,
+      assignee: dropVal.name,
+      _id: dropVal._id,
+    };
+    const res = await create(data);
+
+    if (res.message) {
+      toastSuccess(res.message);
+
+      setTaskInput(inputsToState(createTaskInput));
+    }
+    if (res.error) {
+      toastError(res.error);
+    }
+
+    router.push({ pathname: router.asPath }, undefined, { scroll: false });
+    setTaskLoading(false);
+  };
+  const completeTaskHandler = async (taskId) => {
+    const data = { taskId, employeeId: data._id };
+    const res = await completeTask(data);
+
+    if (res.message) {
+      toastSuccess(res.message);
+    }
+    if (res.error) {
+      toastSuccess(res.error);
+    }
+    router.push({ pathname: router.asPath }, undefined, { scroll: false });
+  };
   return (
     <>
       <Head>
-        <title>View page on {name}</title>
+        <title>Account page</title>
         <meta name="description" content="Empowering Employee Productivity" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -41,42 +86,83 @@ const Id = () => {
             icon="giReturn"
             iconPos="left"
             text="Home page"
-            color={color}
+            color={data.color}
             isBg={false}
+            onClick={() => router.push("/")}
             className="px-3"
             classNameText="pl-1 font-bold"
             classNameIcon="text-2xl"
           />
         </div>
         <h1 className="text-5xl font-semibold">
-          <span style={{ color }}>{name} </span>Overview
+          <span style={{ color: data.color }} className="pr-2">
+            {data.fullName}
+          </span>
+          Overview
         </h1>
         <section className="mt-10 grid grid-cols-2 gap-x-10">
           <div>
-            <Employee color={color} type="delete" />
+            <Employee data={data} type="edit" isFullData={true} />
           </div>
           <div>
             <Create
               title="Add New Task"
               className="grid grid-cols-2 gap-x-10 gap-y-3"
+              onSubmit={createHandler}
             >
               {createTaskInput.map((input) => {
-                return <Input {...input} key={input._id} />;
+                return (
+                  <Input
+                    {...input}
+                    key={input._id}
+                    onChange={inputHandler}
+                    value={taskInput[input.name]}
+                    listValue={dropVal || null}
+                    color={data.color}
+                    listNameOnly={true}
+                  />
+                );
               })}
-              <Button text="Add task" className="col-span-1 row-start-4" />
+              <Button
+                text="Add task"
+                className="col-span-1 row-start-4"
+                isLoading={taskLoading}
+                type="submit"
+              />
             </Create>
           </div>
         </section>
         <section className="mt-10">
           <h1 className="text-5xl font-semibold">
-            <span style={{ color }}>{name} </span>Tasks
+            <span style={{ color: data.color }}>{data.fullName} </span>
+            Tasks
           </h1>
 
-          <Table data={data} color={color} />
+          {data.tasks.filter((task) => !task.isCompleted).length > 0 && (
+            <Table
+              data={data.tasks.filter((task) => !task.isCompleted)}
+              color={data.color}
+              completeTaskHandler={completeTaskHandler}
+            />
+          )}
         </section>
       </main>
     </>
   );
 };
 
-export default Id;
+export default EmployeeAccount;
+
+export async function getServerSideProps(context) {
+  await connectMongo();
+
+  const { id } = context.params;
+  const data = await EmployeeDb.findOne({ _id: new ObjectId(id) }).populate(
+    "tasks"
+  );
+  return {
+    props: {
+      data: JSON.parse(JSON.stringify(data)),
+    },
+  };
+}
