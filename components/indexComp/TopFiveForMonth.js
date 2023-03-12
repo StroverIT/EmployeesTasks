@@ -15,19 +15,19 @@ const TopFiveForMonth = () => {
   }, []);
   return (
     <section>
-      <h3 className="mb-10 text-4xl font-semibold">
+      <h3 className="mb-10 text-2xl font-semibold md:text-4xl">
         Top 5 employees for the month
       </h3>
 
       <section className="box-shadow border-[3px] border-blue-300 rounded-[1.3rem] px-10 py-6 grid grid-cols-2 justify-between items-center">
         <section className="mb-5 text-center">
-          <div className="inline-block text-xl font-medium ">
+          <div className="inline-block font-medium md:text-xl ">
             Employee Name
             <div className="w-full h-[2px] bg-blue-600"></div>
           </div>
         </section>
         <section className="mb-5 text-center">
-          <div className="inline-block text-xl font-medium">
+          <div className="inline-block font-medium md:text-xl">
             Completed Tasks
             <div className="w-full h-[2px] bg-blue-600 "></div>
           </div>

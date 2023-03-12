@@ -22,8 +22,12 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
       {/*  */}
       <div className="hidden col-span-2"></div>
       <main className="container ">
-        <h1 className="text-6xl font-semibold">Welcome to TaskHub</h1>
-        <p className="text-4xl font-light">Empowering Employee Productivity</p>
+        <h1 className="text-xl font-semibold md:text-6xl">
+          Welcome to TaskHub
+        </h1>
+        <p className="text-lg font-light md:text-4xl">
+          Empowering Employee Productivity
+        </p>
 
         {/* Creating a employee */}
         <section className="grid grid-cols-1 gap-10 mt-16 md:grid-cols-2">
@@ -36,7 +40,9 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
           {/* Emloyee view details */}
           {totalEmployeeLength > 0 && employees && (
             <section className="md:col-span-2">
-              <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
+              <h3 className="mb-10 text-2xl font-semibold md:text-4xl">
+                Employees
+              </h3>
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {employees.map((employee) => {
                   return (

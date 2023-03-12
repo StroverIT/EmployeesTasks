@@ -88,7 +88,9 @@ const Employee = ({ data, type, isFullData }) => {
       }}
     >
       <section className={` flex justify-between items-center w-full `}>
-        {!isEdit && <div className="font-bold text-2xl">{data.fullName}</div>}
+        {!isEdit && (
+          <div className="text-lg font-bold md:text-2xl">{data.fullName}</div>
+        )}
         <div>
           {isEdit && (
             <Input
@@ -105,9 +107,9 @@ const Employee = ({ data, type, isFullData }) => {
       </section>
 
       {/* Range */}
-      <div className="w-full bg-gray-200 rounded-full h-4 my-8 dark:bg-gray-700">
+      <div className="w-full h-4 my-8 bg-gray-200 rounded-full dark:bg-gray-700">
         <div
-          className=" h-4 rounded-full dark:bg-red-500"
+          className="h-4 rounded-full dark:bg-red-500"
           style={{
             width: range + "%",
             backgroundColor: data.color,
@@ -115,7 +117,7 @@ const Employee = ({ data, type, isFullData }) => {
         ></div>
       </div>
       <section className="flex flex-col gap-y-2">
-        <section className="flex justify-between items-center w-full text-sm">
+        <section className="flex items-center justify-between w-full text-sm">
           <div>Email</div>
           {!isEdit && <div className="pl-1 text-slate-500"> {data.email}</div>}
           {isEdit && (
@@ -129,7 +131,7 @@ const Employee = ({ data, type, isFullData }) => {
         </section>
         {isFullData && (
           <>
-            <section className="flex justify-between items-center w-full text-sm">
+            <section className="flex items-center justify-between w-full text-sm">
               <div>Phone Number</div>
               {!isEdit && (
                 <div className="pl-1 text-slate-500"> {data.phoneNumber}</div>
@@ -143,7 +145,7 @@ const Employee = ({ data, type, isFullData }) => {
                 />
               )}
             </section>
-            <section className="flex justify-between items-center w-full text-sm">
+            <section className="flex items-center justify-between w-full text-sm">
               <div>Birthday</div>
               {!isEdit && (
                 <div className="pl-1 text-slate-500"> {data.birthday}</div>
@@ -157,7 +159,7 @@ const Employee = ({ data, type, isFullData }) => {
                 />
               )}
             </section>
-            <section className="flex justify-between items-center w-full text-sm">
+            <section className="flex items-center justify-between w-full text-sm">
               <div>Month Salary</div>
               {!isEdit && (
                 <div className="pl-1 text-slate-500">
@@ -177,7 +179,7 @@ const Employee = ({ data, type, isFullData }) => {
         )}
       </section>
       {!isEdit && (
-        <div className="flex-center w-full mt-7">
+        <div className="w-full flex-center mt-7">
           <Button
             text={text}
             className={`w-44 `}
@@ -187,7 +189,7 @@ const Employee = ({ data, type, isFullData }) => {
         </div>
       )}
       {isEdit && (
-        <div className="flex-center w-full mt-7">
+        <div className="w-full flex-center mt-7">
           <Button
             text="Send"
             className={`w-44 `}

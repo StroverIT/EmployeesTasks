@@ -94,7 +94,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
 
       {isEdit && (
         <div className="fixed h-screen w-screen  bg-[#f5f8f5] top-0 z-50 left-0 ">
-          <div className="container relative flex-col min-h-screen flex-center gap-y-10 md:max-w-lg ">
+          <div className="container relative flex-col min-h-screen flex-center gap-y-3 md:max-w-lg ">
             <div className="absolute top-10 right-10">
               <Button
                 icon="hix"
@@ -105,7 +105,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
                 classNameIcon="text-xl"
               />
             </div>
-            <div className="flex flex-col w-full px-6 py-4 gap-y-5">
+            <div className="items-center w-full gap-4 px-6  md:grid">
               {createTaskInput.map((input, index) => {
                 return (
                   <Input

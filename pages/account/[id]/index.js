@@ -97,7 +97,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
             classNameIcon="text-2xl"
           />
         </div>
-        <h1 className="text-5xl font-semibold">
+        <h1 className="text-2xl font-semibold md:text-5xl">
           <span style={{ color: data.color }} className="pr-2">
             {data.fullName}
           </span>
@@ -136,7 +136,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
           </div>
         </section>
         <section className="mt-10">
-          <h1 className="text-5xl font-semibold">
+          <h1 className="text-2xl font-semibold md:text-5xl">
             <span style={{ color: data.color }}>{data.fullName} </span>
             Tasks
           </h1>
