@@ -15,6 +15,7 @@ const Button = ({
   classNameIcon,
   iconPos,
   classNameText,
+  isLoading,
 }) => {
   const themeColors = {
     black: ["bg-gray-900", "rgb(17 24 39)"],
@@ -38,6 +39,7 @@ const Button = ({
             }
       }
       type={type}
+      onClick={onClick}
       className={`${className} ${
         isBg && themeColors[theme][0]
       } text-white py-2 rounded-md  flex-center`}
@@ -46,13 +48,15 @@ const Button = ({
         transition: { type: "spring", stiffness: 300, duration: 2 },
       }}
     >
-      <div className={classNameIcon}>
-        {icon && iconPos == "left" && icons[icon]}
-      </div>{" "}
-      <div className={`${classNameText} flex-center`}>{text}</div>
-      <div className={classNameIcon}>
-        {icon && iconPos == "right" && icons[icon]}
+      {icon && iconPos == "left" && (
+        <div className={classNameIcon}>{icons[icon]}</div>
+      )}
+      <div className={`${classNameText} flex-center`}>
+        {isLoading ? <div className="loader"> </div> : text}
       </div>
+      {icon && iconPos == "right" && (
+        <div className={classNameIcon}>{icons[icon]}</div>
+      )}
     </motion.button>
   );
 };
