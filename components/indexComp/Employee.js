@@ -1,26 +1,31 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { toastError, toastSuccess } from "../../libs/Notifications";
+import { del } from "../../utils/employee";
 import { formatCurrency } from "../../utils/helper";
 import { getCompletedAndNon } from "../../utils/task";
 import Button from "../Forms/Buttons/Default";
 
 const Employee = ({ data, type, isFullData }) => {
   const router = useRouter();
-
   const [tasks, setTasks] = useState({
     completed: 0,
     total: 0,
   });
 
-  useEffect(() => {
-    (async function () {
-      const res = await getCompletedAndNon(data._id);
-      setTasks(res.data);
-    })();
-  }, [data]);
+  const deleteHandler = async () => {
+    const res = await del(data._id);
+    if (res.message) {
+      toastSuccess(res.message);
+    }
+    if (res.error) {
+      toastError(res.error);
+    }
+    router.push("/", undefined, { scroll: false });
+  };
 
   let range, onClick, text;
-
+  console.log(tasks);
   if (tasks.completed == 0) {
     range = 0;
   } else {
@@ -35,6 +40,12 @@ const Employee = ({ data, type, isFullData }) => {
   } else if (type == "edit") {
     text = "Edit Account";
   }
+  useEffect(() => {
+    (async function () {
+      const res = await getCompletedAndNon(data._id);
+      setTasks(res.data);
+    })();
+  }, [data]);
   return (
     <section
       className={`box-shadow border-[3px]  rounded-[1.3rem] px-10 pt-10 pb-8  w-full relative`}
@@ -98,7 +109,7 @@ const Employee = ({ data, type, isFullData }) => {
           iconPos="left"
           className={`w-12 `}
           color={"#df6b62"}
-          onClick={onClick}
+          onClick={deleteHandler}
           classNameIcon="text-xl"
         />
       </div>
