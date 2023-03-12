@@ -16,6 +16,9 @@ export const generateRandomColor = (num) => {
   return hslToHex(num * 35, 65, 50);
 };
 
+export const formatDate = (date) => {
+  return date.split("-").reverse().join(".");
+};
 export const formatPercentage = (amt) => {
   return amt.toLocaleString(undefined, {
     style: "percent",
@@ -28,4 +31,22 @@ export const formatCurrency = (amt) => {
     style: "currency",
     currency: "USD",
   });
+};
+
+export const inputsToState = (data) => {
+  const obj = {};
+  Object.values(data).forEach((value) => {
+    obj[value.name] = "";
+  });
+  return obj;
+};
+
+export const setInputHandler = (e, setState) => {
+  const name = e.target.name;
+  let value = e.target.value;
+
+  setState((prevState) => ({
+    ...prevState,
+    [name]: value,
+  }));
 };
