@@ -10,7 +10,6 @@ import Employee from "../components/indexComp/Employee";
 // Mongodb
 import { connectMongo } from "../db/connectDb";
 import { default as EmployeeDb } from "../db/models/Employee";
-import { namesAndTasks } from "../utils/task";
 
 export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
   return (
@@ -46,10 +45,6 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
               </div>
             </section>
           )}
-          {/* <section>
-            <h3 className="mb-10 text-4xl font-semibold">All tasks</h3>
-            <Task />
-          </section> */}
         </section>
       </main>
     </>
@@ -60,7 +55,6 @@ export async function getStaticProps() {
   await connectMongo();
   const totalEmployeeLength = await EmployeeDb.count();
   const employees = await EmployeeDb.find({});
-  // const nameAndTasks = await namesAndTasks();
 
   const namesAndIds = employees.map((employee) => {
     return { name: employee.fullName, _id: employee._id };
