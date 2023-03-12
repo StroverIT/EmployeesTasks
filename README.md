@@ -12,6 +12,9 @@ yarn
 yarn dev
 ```
 
+create .env.local file and inside it write
+DB_HOST=mongodb://127.0.0.1:27017/nameOfTheDB
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. If the port is taken, automaticaly is going to the next port, which is 3001
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
@@ -59,6 +62,3 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 1. TOP 5 statistic for the year - Most hardworking one is showing on the statistic, where every month is showing his/her monthly completed tasks
 2. On edit, can give the task to another employee - Let's say I am junior and was brave and took more than I can, and now I need help, this is perfect for someone to give me a hand
 
-
-
-Live demo: [Click here](http://185.123.188.214:8092/)
