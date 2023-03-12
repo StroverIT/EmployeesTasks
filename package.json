@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "framer-motion": "^10.2.3",
-    "hamburger-react": "^2.5.0",
-    "i": "^0.3.7",
     "mongoose": "^7.0.1",
     "next": "13.2.3",
     "npm": "^9.6.1",
