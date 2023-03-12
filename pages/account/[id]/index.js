@@ -58,7 +58,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
       toastError(res.error);
     }
 
-    router.push({ pathname: router.asPath }, undefined, { scroll: false });
+    router.push({ pathname: router.pathname }, undefined, { scroll: false });
     setTaskLoading(false);
   };
   const completeTaskHandler = async (taskId) => {
@@ -71,7 +71,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
     if (res.error) {
       toastError(res.error);
     }
-    router.push({ pathname: router.asPath }, undefined, { scroll: false });
+    router.push({ pathname: router.pathname }, undefined, { scroll: false });
   };
 
   return (

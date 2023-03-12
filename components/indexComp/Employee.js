@@ -46,7 +46,7 @@ const Employee = ({ data, type, isFullData }) => {
     if (res.message) {
       toastSuccess(res.message);
       setEdit(false);
-      router.push(router.asPath, undefined, { scroll: false });
+      router.push(router.pathname, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);

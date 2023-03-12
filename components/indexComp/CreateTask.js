@@ -46,7 +46,7 @@ const CreateTask = ({ namesAndIds }) => {
       toastSuccess(res.message);
       setDropVal(dropValInput);
       setTaskInput(inputsToState(createTaskInput));
-      router.push({ pathname: router.asPath }, undefined, { scroll: false });
+      router.push({ pathname: router.pathname }, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
@@ -78,7 +78,7 @@ const CreateTask = ({ namesAndIds }) => {
         })}
         <Button
           text="Add task"
-          className="col-span-1 row-start-4  w-full max-lg:mt-5"
+          className="w-full col-span-1 row-start-4 max-lg:mt-5"
           type="submit"
           isLoading={isLoading}
         />

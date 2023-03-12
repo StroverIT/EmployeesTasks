@@ -35,7 +35,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
     const res = await del(data._id);
     if (res.message) {
       toastSuccess(res.message);
-      router.push(router.asPath, undefined, { scroll: false });
+      router.push(router.pathname, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
@@ -63,7 +63,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
     if (res.message) {
       toastSuccess(res.message);
       editHandlerMenu(false);
-      router.push({ pathname: router.asPath }, undefined, { scroll: false });
+      router.push({ pathname: router.pathname }, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
@@ -105,7 +105,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
                 classNameIcon="text-xl"
               />
             </div>
-            <div className="items-center w-full gap-4 px-6  md:grid">
+            <div className="items-center w-full gap-4 px-6 md:grid">
               {createTaskInput.map((input, index) => {
                 return (
                   <Input
