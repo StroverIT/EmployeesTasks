@@ -32,7 +32,7 @@ const CreateEmployee = () => {
     if (res.message) {
       toastSuccess(res.message);
       setEmployeeInputs(inputsToState(createEmployeeInputs));
-      router.push({ pathname: router.asPath }, undefined, { scroll: false });
+      router.push({ pathname: router.pathname }, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
@@ -43,7 +43,7 @@ const CreateEmployee = () => {
     <div>
       <Create
         title="Create employee"
-        className="lg:grid  lg:grid-cols-2 gap-x-10 gap-y-3"
+        className="lg:grid lg:grid-cols-2 gap-x-10 gap-y-3"
         onSubmit={createHandler}
       >
         {createEmployeeInputs.map((input) => {
@@ -59,7 +59,7 @@ const CreateEmployee = () => {
         })}
         <Button
           text="Create employee"
-          className="col-start-1 mt-5 w-full"
+          className="w-full col-start-1 mt-5"
           type="submit"
           isLoading={isLoading}
         />
