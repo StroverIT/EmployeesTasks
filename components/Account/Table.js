@@ -5,13 +5,13 @@ import TaskTable from "./TaskTable";
 const Table = ({ data, color, completeTaskHandler, namesAndIds }) => {
   return (
     <section
-      className={`grid grid-cols-[20%50%10%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
+      className={`grid lg:grid-cols-[20%50%10%10%10%]  mt-14 justify-center items-center text-center gap-x-1 gap-y-2`}
     >
       {/* Header */}
-      <div className=" font-bold text-xl">Title</div>
-      <div className=" font-bold text-xl">Description</div>
-      <div className=" font-bold text-xl">Due Date</div>
-      <div className=" font-bold text-xl">Assignee</div>
+      <div className="text-xl font-bold max-lg:hidden">Title</div>
+      <div className="text-xl font-bold max-lg:hidden">Description</div>
+      <div className="text-xl font-bold max-lg:hidden">Due Date</div>
+      <div className="text-xl font-bold max-lg:hidden">Assignee</div>
 
       <div className="invisible">Edit,Delete,Complete</div>
 
@@ -77,14 +77,14 @@ export default Table;
         >
           <th
             scope="row"
-            className="px-6 py-4 font-medium text-gray-900 break-all whitespace-pre-line max-w-sm dark:text-white "
+            className="max-w-sm px-6 py-4 font-medium text-gray-900 break-all whitespace-pre-line dark:text-white "
           >
             {data.title}
           </th>
           <td className="px-6 py-4">{data.description}</td>
           <td className="px-16 py-4 ">{data.dueDate}</td>
 
-          <td className="pr-8 py-4 text-right">
+          <td className="py-4 pr-8 text-right">
             <a
               href="#"
               className="font-medium hover:underline"
@@ -93,7 +93,7 @@ export default Table;
               Edit
             </a>
           </td>
-          <td className="py-4 px-5 text-right">
+          <td className="px-5 py-4 text-right">
             <a
               href="#"
               className="font-medium hover:underline"

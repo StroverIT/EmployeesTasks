@@ -22,6 +22,8 @@ import { completeTask, create } from "../../../utils/task";
 import { connectMongo } from "../../../db/connectDb";
 import { default as EmployeeDb } from "../../../db/models/Employee";
 import { ObjectId } from "mongodb";
+
+// Notifications
 import { toastError, toastSuccess } from "../../../libs/Notifications";
 
 const EmployeeAccount = ({ data, namesAndIds }) => {
@@ -101,14 +103,14 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
           </span>
           Overview
         </h1>
-        <section className="mt-10 grid grid-cols-2 gap-x-10">
+        <section className="mt-10 lg:grid lg:grid-cols-2 gap-x-10">
           <div>
             <Employee data={data} type="edit" isFullData={true} />
           </div>
-          <div>
+          <div className="max-lg:mt-10">
             <Create
               title="Add New Task"
-              className="grid grid-cols-2 gap-x-10 gap-y-3"
+              className="grid-cols-2 lg:grid gap-x-10 gap-y-3"
               onSubmit={createHandler}
             >
               {createTaskInput.map((input) => {
@@ -126,7 +128,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
               })}
               <Button
                 text="Add task"
-                className="col-span-1 row-start-4"
+                className="w-full col-span-1 row-start-4 max-lg:mt-5"
                 isLoading={taskLoading}
                 type="submit"
               />

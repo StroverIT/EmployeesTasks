@@ -19,13 +19,14 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
         <meta name="description" content="Empowering Employee Productivity" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      {/*  */}
+      <div className="hidden col-span-2"></div>
       <main className="container ">
         <h1 className="text-6xl font-semibold">Welcome to TaskHub</h1>
         <p className="text-4xl font-light">Empowering Employee Productivity</p>
 
         {/* Creating a employee */}
-        <section className="grid gap-10 mt-16 grid-cols-1 md:grid-cols-2">
+        <section className="grid grid-cols-1 gap-10 mt-16 md:grid-cols-2">
           <CreateEmployee />
           {totalEmployeeLength > 0 && <CreateTask namesAndIds={namesAndIds} />}
           {totalEmployeeLength > 0 && (
@@ -36,7 +37,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
           {totalEmployeeLength > 0 && employees && (
             <section className="md:col-span-2">
               <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {employees.map((employee) => {
                   return (
                     <Employee key={employee._id} data={employee} type="view" />

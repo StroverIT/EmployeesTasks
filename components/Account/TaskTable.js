@@ -72,22 +72,29 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
   };
   return (
     <>
-      <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full">
+      <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full flex-col">
+        <div className="font-semibold lg:hidden">Title</div>
+
         {data.title}
       </div>
-      <div className="px-6 py-4 bg-[#f5f8f5]  flex-center flex-wrap h-full">
+      <div className="px-6 py-4 bg-[#f5f8f5]  flex-center flex-col break-all whitespace-pre-line  h-full">
+        <div className="font-semibold lg:hidden">Description</div>
         {data.description}
       </div>
-      <div className=" py-4  bg-[#f5f8f5] flex-center h-full">
+      <div className=" py-4  bg-[#f5f8f5] flex-center h-full flex-col">
+        <div className="font-semibold lg:hidden">Due Date</div>
+
         {data.dueDate}
       </div>
-      <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full">
+      <div className="px-6 py-4  bg-[#f5f8f5] flex-center h-full flex-col">
+        <div className="font-semibold lg:hidden">Assignee</div>
+
         {data.assignee}
       </div>
 
       {isEdit && (
-        <div className="fixed h-screen w-screen  bg-[#f5f8f5] top-0 z-50 left-0">
-          <div className="flex-center flex-col h-full relative container gap-y-10 md:max-w-lg">
+        <div className="fixed h-screen w-screen  bg-[#f5f8f5] top-0 z-50 left-0 ">
+          <div className="container relative flex-col min-h-screen flex-center gap-y-10 md:max-w-lg ">
             <div className="absolute top-10 right-10">
               <Button
                 icon="hix"
@@ -98,7 +105,7 @@ const TaskTable = ({ data, color, namesAndIds, completeTaskHandler }) => {
                 classNameIcon="text-xl"
               />
             </div>
-            <div className="px-6 py-4  w-full flex flex-col gap-y-5">
+            <div className="flex flex-col w-full px-6 py-4 gap-y-5">
               {createTaskInput.map((input, index) => {
                 return (
                   <Input
