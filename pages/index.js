@@ -1,20 +1,18 @@
 import Head from "next/head";
-import Create from "../components/Forms/Create/Create";
-import Input from "../components/Forms/Inputs/Default";
-import Amount from "../components/Forms/Inputs/Default";
-import styles from "../styles/Home.module.css";
 
-import { createEmployeeInputs, createTaskInput } from "../data/index/Inputs";
-import Button from "../components/Forms/Buttons/Default";
+// Components
+import CreateEmployee from "../components/indexComp/CreateEmployee";
+import CreateTask from "../components/indexComp/CreateTask";
 import TopFiveForMonth from "../components/indexComp/TopFiveForMonth";
 import StatisticForTheYear from "../components/indexComp/StatisticForTheYear";
 import Employee from "../components/indexComp/Employee";
-import { generateRandomColor } from "../utils/helper";
-import Task from "../components/indexComp/Task";
 
-export default function Home() {
-  const color = generateRandomColor(1);
-  const createEmployeeHandler = (data) => {};
+// Mongodb
+import { connectMongo } from "../db/connectDb";
+import { default as EmployeeDb } from "../db/models/Employee";
+import { namesAndTasks } from "../utils/task";
+
+export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
   return (
     <>
       <Head>
@@ -29,35 +27,25 @@ export default function Home() {
 
         {/* Creating a employee */}
         <section className="grid gap-10 mt-16 md:grid-cols-2">
-          <Create
-            title="Create employee"
-            className="grid grid-cols-2 gap-x-10 gap-y-3"
-          >
-            {createEmployeeInputs.map((input) => {
-              return <Input {...input} key={input._id} />;
-            })}
-            <Button text="Create employee" className="col-start-1" />
-          </Create>
-          <Create
-            title="Add New Task"
-            className="grid grid-cols-2 gap-x-10 gap-y-3"
-          >
-            {createTaskInput.map((input) => {
-              return <Input {...input} key={input._id} />;
-            })}
-            <Button text="Add task" className="col-span-1 row-start-4" />
-          </Create>
-          <TopFiveForMonth />
-          <StatisticForTheYear />
+          <CreateEmployee />
+          {totalEmployeeLength > 0 && <CreateTask namesAndIds={namesAndIds} />}
+          {totalEmployeeLength > 0 && (
+            <TopFiveForMonth namesAndIds={namesAndIds} />
+          )}
+          {totalEmployeeLength > 0 && <StatisticForTheYear />}
           {/* Emloyee view details */}
-          <section className="col-span-2">
-            <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
-            <div className="grid grid-cols-3 gap-x-8">
-              <Employee color={color} type="view" />
-              <Employee color={color} />
-              <Employee color={color} />
-            </div>
-          </section>
+          {totalEmployeeLength > 0 && (
+            <section className="col-span-2">
+              <h3 className="mb-10 text-4xl font-semibold">Employees</h3>
+              <div className="grid grid-cols-3 gap-8">
+                {employees.map((employee) => {
+                  return (
+                    <Employee key={employee._id} data={employee} type="view" />
+                  );
+                })}
+              </div>
+            </section>
+          )}
           {/* <section>
             <h3 className="mb-10 text-4xl font-semibold">All tasks</h3>
             <Task />
@@ -66,4 +54,22 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getStaticProps() {
+  await connectMongo();
+  const totalEmployeeLength = await EmployeeDb.count();
+  const employees = await EmployeeDb.find({});
+  // const nameAndTasks = await namesAndTasks();
+
+  const namesAndIds = employees.map((employee) => {
+    return { name: employee.fullName, _id: employee._id };
+  });
+  return {
+    props: {
+      totalEmployeeLength,
+      namesAndIds: JSON.parse(JSON.stringify(namesAndIds)),
+      employees: JSON.parse(JSON.stringify(employees)),
+    },
+  };
 }
