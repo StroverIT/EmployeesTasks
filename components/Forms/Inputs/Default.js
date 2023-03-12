@@ -18,9 +18,6 @@ const Input = ({
 
   color,
 }) => {
-  // if (className == "col-span-2") {
-  // }
-
   const [dropOpen, setDropOpen] = useState(false);
 
   const setDropHandler = () => {
@@ -129,11 +126,3 @@ const Input = ({
 };
 
 export default Input;
-
-// type="number"
-// step="0.01"
-// inputmode="decimal"
-// name="newExpenseAmount"
-// id="newExpenseAmount"
-// placeholder="e.g., 3.50"
-// required
