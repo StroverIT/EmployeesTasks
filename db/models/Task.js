@@ -9,7 +9,7 @@ const TaskSchema = new Schema({
     type: String,
     required: true,
   },
-  assigneeId: { type: Schema.Types.ObjectId, ref: "Employee" },
+  employeeId: { type: Schema.Types.ObjectId, ref: "Employee" },
   description: {
     type: String,
     required: true,
@@ -22,7 +22,9 @@ const TaskSchema = new Schema({
     type: Boolean,
     default: false,
   },
-
+  completedDate: {
+    type: String,
+  },
   createdAt: {
     type: String,
     default: () => {
