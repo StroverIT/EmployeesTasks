@@ -12,12 +12,17 @@ const Input = ({
   onChange,
   value,
   list = [],
+  listValue,
+  listHandler,
 }) => {
   if (className == "col-span-2") {
-    console.log("true");
   }
-  const [dropOpen, setDropOpen] = useState(false);
 
+  const [dropOpen, setDropOpen] = useState(false);
+  const dropHandler = (data) => {
+    setDropOpen(false);
+    listHandler(data);
+  };
   return (
     <div className={`${className}`}>
       <label
@@ -44,6 +49,7 @@ const Input = ({
       )}
       {isLargeText && type != "dropdown" && (
         <textarea
+          name={name}
           onChange={onChange}
           value={value}
           className={`${classNameInput} block p-2.5 w-full text-sm  bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
@@ -60,7 +66,7 @@ const Input = ({
             type="button"
             onClick={() => setDropOpen(!dropOpen)}
           >
-            Assignee
+            {listValue.name}
             <svg
               className="w-4 h-4 ml-2"
               aria-hidden="true"
@@ -86,38 +92,19 @@ const Input = ({
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownDefaultButton"
               >
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Dashboard
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Earnings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </li>
+                {list.map((data) => {
+                  return (
+                    <li
+                      key={data._id}
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                      onClick={() =>
+                        dropHandler({ name: data.name, _id: data._id })
+                      }
+                    >
+                      {data.name}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
