@@ -27,17 +27,23 @@ const CreateEmployee = () => {
 
   const createHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const res = await create(employeeInputs);
-    if (res.message) {
-      toastSuccess(res.message);
-      setEmployeeInputs(inputsToState(createEmployeeInputs));
-      router.push({ pathname: router.asPath }, { scroll: false });
+    try {
+      setLoading(true);
+      const res = await create(employeeInputs);
+      if (res.message) {
+        toastSuccess(res.message);
+        setEmployeeInputs(inputsToState(createEmployeeInputs));
+        router.push(router.asPath, undefined, { scroll: false });
+      }
+      if (res.error) {
+        toastError(res.error);
+      }
+      setLoading(false);
+    } catch (e) {
+      if (err) {
+        console.log(err);
+      }
     }
-    if (res.error) {
-      toastError(res.error);
-    }
-    setLoading(false);
   };
   return (
     <div>
