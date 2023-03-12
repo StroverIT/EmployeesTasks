@@ -32,7 +32,7 @@ const CreateEmployee = () => {
     if (res.message) {
       toastSuccess(res.message);
       setEmployeeInputs(inputsToState(createEmployeeInputs));
-      router.push({ pathname: router.pathname }, { scroll: false });
+      router.push({ pathname: router.asPath }, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
