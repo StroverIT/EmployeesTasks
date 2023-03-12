@@ -51,7 +51,7 @@ const CreateEmployee = () => {
             <Input
               {...input}
               key={input._id}
-              className="max-lg:mt-4"
+              className="max-lg:my-4"
               onChange={inputHandler}
               value={employeeInputs[input.name]}
             />
