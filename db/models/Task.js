@@ -18,7 +18,7 @@ const TaskSchema = new Schema({
     type: String,
     required: true,
   },
-  isCompleted: Bolean,
+  isCompleted: Boolean,
 
   createdAt: {
     type: String,
