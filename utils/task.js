@@ -23,8 +23,8 @@ export const del = async (id) => {
 };
 
 export const edit = async (data) => {
-  const res = await fetch(endpoint + "create", {
-    method: "POST",
+  const res = await fetch(endpoint + "edit", {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });

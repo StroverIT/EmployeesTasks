@@ -14,8 +14,9 @@ export default async function handler(req, res) {
     const employee = await Employee.findOneAndDelete({
       _id: new ObjectId(employeeId),
     });
-    console.log(employee);
+
     await Task.deleteMany({ employeeId: new ObjectId(employeeId) });
+
     res
       .status(200)
       .json({ message: `${employee.fullName} was deleted successfully` });

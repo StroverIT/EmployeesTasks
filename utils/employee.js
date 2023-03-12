@@ -21,11 +21,11 @@ export const del = async (id) => {
   });
   return res.json();
 };
-export const edit = async (data) => {
-  const res = await fetch(endpoint + "create", {
-    method: "POST",
+export const edit = async (inputs, employeeId) => {
+  const res = await fetch(endpoint + "edit", {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify({ inputs, employeeId }),
   });
   return res.json();
 };
