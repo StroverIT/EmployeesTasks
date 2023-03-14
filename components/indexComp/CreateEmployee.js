@@ -31,8 +31,9 @@ const CreateEmployee = () => {
     const res = await create(employeeInputs);
     if (res.message) {
       toastSuccess(res.message);
+
       setEmployeeInputs(inputsToState(createEmployeeInputs));
-      console.log(router.asPath);
+      
       router.push(router.asPath, undefined, { scroll: false });
     }
     if (res.error) {
