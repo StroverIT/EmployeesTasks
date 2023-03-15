@@ -34,18 +34,16 @@ const CreateEmployee = () => {
 
       setEmployeeInputs(inputsToState(createEmployeeInputs));
 
-      // router.push({ pathname: router.asPath }, router.asPath, {
-      //   scroll: false,
-      // });
+      router.push({ pathname: router.asPath }, router.asPath, {
+        scroll: false,
+      });
     }
     if (res.error) {
       toastError(res.error);
     }
     setLoading(false);
   };
-  // useEffect(() => {
-  //   router.push({ pathname: router.asPath }, router.asPath, { scroll: false });
-  // }, [router]);
+
   return (
     <div>
       <Create
