@@ -48,12 +48,13 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
       _id: dropVal._id,
     };
     const res = await create(data);
+    console.log("nice");
 
     if (res.message) {
       toastSuccess(res.message);
 
       setTaskInput(inputsToState(createTaskInput));
-      router.push({ pathname: router.asPath }, { scroll: false });
+      router.push({ pathname: router.asPath }, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
