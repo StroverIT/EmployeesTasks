@@ -54,7 +54,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
       toastSuccess(res.message);
 
       setTaskInput(inputsToState(createTaskInput));
-      router.push({ pathname: router.asPath }, undefined, { scroll: false });
+      router.push(router.asPath, undefined, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
@@ -69,7 +69,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
 
       if (res.message) {
         toastSuccess(res.message);
-        router.push({ pathname: router.asPath }, undefined, {
+        router.push(router.asPath, {
           scroll: false,
         });
       }

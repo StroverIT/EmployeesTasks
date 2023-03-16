@@ -46,7 +46,7 @@ const CreateTask = ({ namesAndIds }) => {
       toastSuccess(res.message);
       setDropVal(dropValInput);
       setTaskInput(inputsToState(createTaskInput));
-      router.push({ pathname: router.asPath }, undefined, { scroll: false });
+      router.push(router.asPath, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
