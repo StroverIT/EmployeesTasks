@@ -53,12 +53,12 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
       toastSuccess(res.message);
 
       setTaskInput(inputsToState(createTaskInput));
+      router.push({ pathname: router.asPath }, { scroll: false });
     }
     if (res.error) {
       toastError(res.error);
     }
 
-    router.push({ pathname: router.asPath }, { scroll: false });
     setTaskLoading(false);
   };
   const completeTaskHandler = async (taskId) => {
@@ -68,14 +68,13 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
 
       if (res.message) {
         toastSuccess(res.message);
+        router.push({ pathname: router.asPath }, undefined, {
+          scroll: false,
+        });
       }
       if (res.error) {
         toastError(res.error);
       }
-      router.push({ pathname: router.asPath }, undefined, {
-        scroll: false,
-        shallow: false,
-      });
     } catch (e) {
       if (e) {
         console.log(e);
