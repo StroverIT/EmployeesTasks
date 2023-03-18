@@ -56,7 +56,7 @@ const Employee = ({ data, type, isFullData }) => {
   };
 
   let range, onClick, text;
-  if (tasks.completed == 0) {
+  if (tasks?.completed == 0) {
     range = 0;
   } else {
     range = (tasks.completed / tasks.total) * 100;
@@ -77,6 +77,7 @@ const Employee = ({ data, type, isFullData }) => {
   useEffect(() => {
     (async function () {
       const res = await getCompletedAndNon(data._id);
+      console.log(res.data);
       setTasks(res.data);
     })();
   }, [data]);
