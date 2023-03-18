@@ -77,8 +77,11 @@ const Employee = ({ data, type, isFullData }) => {
   useEffect(() => {
     (async function () {
       const res = await getCompletedAndNon(data._id);
+      console.log(data);
       console.log(res.data);
-      setTasks(res.data);
+      if (res.data) {
+        setTasks(res.data);
+      }
     })();
   }, [data]);
   return (
