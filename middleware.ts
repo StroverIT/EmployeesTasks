@@ -1,4 +1,4 @@
-// import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // const rewrites = [
 //   {
@@ -49,3 +49,7 @@
 
 //   return NextResponse.next();
 // }
+
+export function middleware(req: NextRequest) {
+  return NextResponse.next();
+}
