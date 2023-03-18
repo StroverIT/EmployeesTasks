@@ -38,7 +38,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
           )} */}
           {/* {totalEmployeeLength > 0 && <StatisticForTheYear />} */}
           {/* Emloyee view details */}
-          {/* {totalEmployeeLength > 0 && employees && (
+          {totalEmployeeLength > 0 && employees && (
             <section className="md:col-span-2">
               <h3 className="mb-10 text-2xl font-semibold md:text-4xl">
                 Employees
@@ -51,7 +51,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
                 })}
               </div>
             </section>
-          )} */}
+          )}
         </section>
       </main>
     </>
