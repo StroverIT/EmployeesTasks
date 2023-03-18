@@ -68,7 +68,7 @@ export async function getServerSideProps() {
   });
   return {
     props: {
-      totalEmployeeLength,
+      totalEmployeeLength: JSON.parse(JSON.stringify(totalEmployeeLength)),
       namesAndIds: JSON.parse(JSON.stringify(namesAndIds)),
       employees: JSON.parse(JSON.stringify(employees)),
     },
