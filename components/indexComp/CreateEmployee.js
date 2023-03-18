@@ -27,8 +27,11 @@ const CreateEmployee = () => {
 
   const createHandler = async (e) => {
     e.preventDefault();
+
     setLoading(true);
+
     const res = await create(employeeInputs);
+
     if (res.message) {
       toastSuccess(res.message);
 
@@ -38,9 +41,11 @@ const CreateEmployee = () => {
         scroll: false,
       });
     }
+
     if (res.error) {
       toastError(res.error);
     }
+
     setLoading(false);
   };
 
@@ -49,7 +54,6 @@ const CreateEmployee = () => {
       <Create
         title="Create employee"
         className="lg:grid lg:grid-cols-2 gap-x-10 gap-y-3"
-        onSubmit={createHandler}
       >
         {createEmployeeInputs.map((input) => {
           return (
@@ -65,8 +69,8 @@ const CreateEmployee = () => {
         <Button
           text="Create employee"
           className="w-full col-start-1 mt-5"
-          type="submit"
           isLoading={isLoading}
+          onClick={createHandler}
         />
       </Create>
     </div>
