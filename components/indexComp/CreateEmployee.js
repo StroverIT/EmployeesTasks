@@ -52,7 +52,7 @@ const CreateEmployee = () => {
   return (
     <div>
       <Create
-        title="Create employee1"
+        title="Create employee"
         className="lg:grid lg:grid-cols-2 gap-x-10 gap-y-3"
       >
         {createEmployeeInputs.map((input) => {
