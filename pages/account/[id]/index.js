@@ -69,7 +69,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
 
       if (res.message) {
         toastSuccess(res.message);
-        router.push(router.asPath, {
+        router.push(router.asPath, undefined, {
           scroll: false,
         });
       }
