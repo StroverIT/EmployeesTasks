@@ -26,7 +26,7 @@ const CreateEmployee = () => {
   const inputHandler = (e) => setInputHandler(e, setEmployeeInputs);
 
   const createHandler = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     setLoading(true);
 
