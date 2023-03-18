@@ -37,7 +37,7 @@ const CreateEmployee = () => {
 
       setEmployeeInputs(inputsToState(createEmployeeInputs));
 
-      router.push(router.asPath, {
+      router.push(router.asPath, undefined, {
         scroll: false,
       });
     }
