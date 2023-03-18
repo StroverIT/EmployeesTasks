@@ -59,7 +59,6 @@ const CreateTask = ({ namesAndIds }) => {
       <Create
         title="Add New Task"
         className="lg:grid lg:grid-cols-2 gap-x-10 gap-y-3"
-        onSubmit={createHandler}
       >
         {/* This is a bad practice new index !!! */}
         {createTaskInput.map((input, index) => {
@@ -81,6 +80,7 @@ const CreateTask = ({ namesAndIds }) => {
           className="w-full col-span-1 row-start-4 max-lg:mt-5"
           type="submit"
           isLoading={isLoading}
+          onClick={createHandler}
         />
       </Create>
     </div>
