@@ -120,7 +120,6 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
             <Create
               title="Add New Task"
               className="grid-cols-2 lg:grid gap-x-10 gap-y-3"
-              onSubmit={createHandler}
             >
               {createTaskInput.map((input) => {
                 return (
@@ -139,7 +138,7 @@ const EmployeeAccount = ({ data, namesAndIds }) => {
                 text="Add task"
                 className="w-full col-span-1 row-start-4 max-lg:mt-5"
                 isLoading={taskLoading}
-                type="submit"
+                onClick={createHandler}
               />
             </Create>
           </div>
