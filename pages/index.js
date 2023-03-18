@@ -33,10 +33,10 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
         <section className="grid grid-cols-1 gap-10 mt-16 md:grid-cols-2">
           <CreateEmployee />
           {totalEmployeeLength > 0 && <CreateTask namesAndIds={namesAndIds} />}
-          {/* {totalEmployeeLength > 0 && (
+          {totalEmployeeLength > 0 && (
             <TopFiveForMonth namesAndIds={namesAndIds} />
-          )} */}
-          {/* {totalEmployeeLength > 0 && <StatisticForTheYear />} */}
+          )}
+          {totalEmployeeLength > 0 && <StatisticForTheYear />}
           {/* Emloyee view details */}
           {totalEmployeeLength > 0 && employees && (
             <section className="md:col-span-2">
