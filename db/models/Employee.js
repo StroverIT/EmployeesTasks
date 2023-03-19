@@ -9,6 +9,10 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    default: "employee",
+  },
   phoneNumber: {
     type: String,
     required: true,
