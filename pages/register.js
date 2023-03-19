@@ -12,58 +12,78 @@ import Button from "../components/Forms/Buttons/Default";
 export default function Home() {
   const router = useRouter();
 
-  const [loginInputs, setLoginInputs] = useState({
+  const [inputs, setInputs] = useState({
+    // name: "",
     email: "",
     password: "",
+    code: "",
   });
 
   const [isFound, setIsFound] = useState(true);
-  const [isLoading, setLoader] = useState(false);
-  const [facebookLoading, setFacebookLoadin] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
 
-  const facebookHandler = async (e) => {
-    setFacebookLoadin(true);
-
-    await signIn("facebook");
-
-    setFacebookLoadin(false);
-  };
-  async function submitHandler(e) {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setLoader(true);
+    setLoading(true);
+    if (errorMessages.length > 0) return;
+    //POST form values
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputs),
+    });
 
+    //Await for data for any desirable next steps
+    if (res.status != 201) {
+      const data = await res.json();
+      setErrorMessages([...data.map((e) => e)]);
+      setLoading(false);
+      return;
+    }
     const status = await signIn("credentials", {
       redirect: false,
-      ...loginInputs,
+      ...inputs,
     });
+
     if (status.error) {
-      toastError(status.error);
+      setErrMess(status.error);
       setLoader(false);
     }
     router.replace(router.asPath);
-  }
+  };
 
   const inputHandler = (e) => {
-    setLoginInputs((prevState) => ({
+    setInputs((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
   return (
-    <div>
+    <>
       <Head>
-        <title>Login page</title>
+        <title>Register page</title>
         <meta
           name="description"
           content="Your personal finance statement app"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container flex-col flex-center ">
+      <main className="container flex-col flex-center">
         <div className="p-10 bg-white rounded-md shadow-2xl">
-          <div className="mb-10 text-5xl font-bold text-blue">Вход</div>
+          <div className="mb-10 text-5xl font-bold text-blue">Регистрация</div>
+          {/* <ColorInput
+            labelName="Име"
+            name="name"
+            type="text"
+            isBtn={false}
+            state={isFound ? "" : "wrong"}
+            input={loginInputs.name}
+            setInput={inputsHandler}
+          /> */}
           <div className="flex flex-col gap-y-5">
             <Input
               name="email"
@@ -71,7 +91,7 @@ export default function Home() {
               placeholder="example@gmail.com"
               label="Email Address"
               onChange={inputHandler}
-              value={loginInputs.email}
+              value={inputs.email}
             />
             <Input
               name="password"
@@ -79,51 +99,31 @@ export default function Home() {
               placeholder="123456"
               label="Password"
               onChange={inputHandler}
-              value={loginInputs.password}
+              value={inputs.password}
+            />
+            <Input
+              name="code"
+              placeholder="32xFg2"
+              label="Invitation Code"
+              onChange={inputHandler}
+              value={inputs.code}
             />
             <Button
-              text="Вход"
+              text="Регистрирай ме"
               className="w-full col-span-1 row-start-4 max-lg:mt-5"
               isLoading={isLoading}
               onClick={submitHandler}
             />
           </div>
-          <div className="grid mt-10 sm:grid-cols-2 gap-y-2">
-            <div
-              className="underline cursor-pointer "
-              onClick={() => router.push("/register")}
-            >
-              Регистрация
-            </div>
-            <div
-              className="underline cursor-pointer "
-              onClick={() => router.push("/forgotenPassword")}
-            >
-              Забравена парола
-            </div>
+          <div
+            className="mt-10 underline cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            Вход
           </div>
-          <section className="mt-12 cursor-pointer md:mx-12">
-            <div
-              className="bg-[#4267b2]  text-white  px-8 py-2 rounded-md flex-center"
-              onClick={facebookHandler}
-            >
-              {facebookLoading ? (
-                <div className="loader"> </div>
-              ) : (
-                <>
-                  <div className="text-3xl ">
-                    <AiFillFacebook />
-                  </div>
-                  <div className="flex items-center justify-center pl-2">
-                    Вход с Facebook
-                  </div>
-                </>
-              )}
-            </div>
-          </section>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 export async function getServerSideProps(context) {
