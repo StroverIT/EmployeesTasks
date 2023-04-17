@@ -9,22 +9,29 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   role: {
     type: String,
     default: "employee",
+  },
+  invCode: {
+    type: String,
   },
   phoneNumber: {
     type: String,
     required: true,
   },
-  birthday: {
-    type: String,
-    required: true,
-  },
-  monthSalary: {
-    type: Number,
-    required: true,
-  },
+  // birthday: {
+  //   type: String,
+  //   required: true,
+  // },
+  // monthSalary: {
+  //   type: Number,
+  //   required: true,
+  // },
   color: {
     type: String,
     required: true,

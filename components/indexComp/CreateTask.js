@@ -42,6 +42,7 @@ const CreateTask = ({ namesAndIds }) => {
     e.preventDefault();
     setLoading(true);
     const res = await create({ ...taskInput });
+
     if (res.message) {
       toastSuccess(res.message);
       setDropVal(dropValInput);

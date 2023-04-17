@@ -54,7 +54,7 @@ export const createTaskInput = [
   {
     name: "assignee",
     type: "dropdown",
-    listValue: "Assignee",
+    listValue: "Employee",
 
     placeholder: "Emil Zlatinov",
     label: "Assignee",
@@ -65,7 +65,7 @@ export const createTaskInput = [
     className: "max-lg:my-4",
     type: "date",
     placeholder: "",
-    label: "Due date",
+    label: "Date",
     _id: "04",
   },
 

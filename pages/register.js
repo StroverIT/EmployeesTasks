@@ -5,9 +5,13 @@ import { useState } from "react";
 import { toastError } from "../libs/Notifications";
 import { signIn, getSession } from "next-auth/react";
 
-import { AiFillFacebook } from "react-icons/ai";
 import Input from "../components/Forms/Inputs/Default";
 import Button from "../components/Forms/Buttons/Default";
+
+const namesAndIds = [
+  { name: "Employee", _id: 0 },
+  { name: "Boss", _id: 1 },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -15,10 +19,15 @@ export default function Home() {
   const [inputs, setInputs] = useState({
     // name: "",
     email: "",
+    fullName: "",
+    phoneNumber: "",
     password: "",
     code: "",
   });
-
+  const [dropVal, setDropVal] = useState(namesAndIds[0]);
+  const dropHandler = (value) => {
+    setDropVal({ name: value.name, _id: value._id });
+  };
   const [isFound, setIsFound] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
@@ -33,26 +42,29 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(inputs),
+      body: JSON.stringify({ ...inputs, ...dropVal }),
     });
 
+    const data = await res.json();
+
+    if (data.message) {
+      console.log("vliza");
+      await signIn("credentials", {
+        redirect: false,
+        email: inputs.email,
+        password: inputs.password,
+      });
+
+      router.replace(router.asPath);
+      return;
+    }
+    console.log(data);
     //Await for data for any desirable next steps
-    if (res.status != 201) {
-      const data = await res.json();
-      setErrorMessages([...data.map((e) => e)]);
+    if (data.error) {
+      toastError(data.error);
       setLoading(false);
       return;
     }
-    const status = await signIn("credentials", {
-      redirect: false,
-      ...inputs,
-    });
-
-    if (status.error) {
-      setErrMess(status.error);
-      setLoader(false);
-    }
-    router.replace(router.asPath);
   };
 
   const inputHandler = (e) => {
@@ -74,7 +86,7 @@ export default function Home() {
 
       <main className="container flex-col flex-center">
         <div className="p-10 bg-white rounded-md shadow-2xl">
-          <div className="mb-10 text-5xl font-bold text-blue">Регистрация</div>
+          <div className="mb-4 text-5xl font-bold text-blue">Регистрация</div>
           {/* <ColorInput
             labelName="Име"
             name="name"
@@ -86,28 +98,58 @@ export default function Home() {
           /> */}
           <div className="flex flex-col gap-y-5">
             <Input
-              name="email"
-              type="email"
-              placeholder="example@gmail.com"
-              label="Email Address"
-              onChange={inputHandler}
-              value={inputs.email}
+              name="role"
+              type="dropdown"
+              label="."
+              onChange={dropHandler}
+              listHandler={dropHandler}
+              listValue={dropVal || null}
+              list={namesAndIds || []}
             />
-            <Input
-              name="password"
-              type="password"
-              placeholder="123456"
-              label="Password"
-              onChange={inputHandler}
-              value={inputs.password}
-            />
-            <Input
-              name="code"
-              placeholder="32xFg2"
-              label="Invitation Code"
-              onChange={inputHandler}
-              value={inputs.code}
-            />
+            <div className="grid items-center gap-5 md:grid-cols-2">
+              <Input
+                name="fullName"
+                placeholder="Ivan Petrov"
+                label="Full Name"
+                onChange={inputHandler}
+                value={inputs.fullName}
+              />
+              <Input
+                name="phoneNumber"
+                placeholder="0870129429"
+                label="Phone Number"
+                onChange={inputHandler}
+                value={inputs.phoneNumber}
+              />
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              <Input
+                name="email"
+                type="email"
+                placeholder="example@gmail.com"
+                label="Email Address"
+                onChange={inputHandler}
+                value={inputs.email}
+              />
+              <Input
+                name="password"
+                type="password"
+                placeholder="123456"
+                label="Password"
+                onChange={inputHandler}
+                value={inputs.password}
+              />
+            </div>
+            {dropVal.name == "Employee" && (
+              <Input
+                name="code"
+                placeholder="32xFg2"
+                label="Invitation Code"
+                onChange={inputHandler}
+                value={inputs.code}
+              />
+            )}
+
             <Button
               text="Регистрирай ме"
               className="w-full col-span-1 row-start-4 max-lg:mt-5"
@@ -129,6 +171,7 @@ export default function Home() {
 export async function getServerSideProps(context) {
   const { query } = context;
   const session = await getSession({ req: context.req });
+  console.log(session);
   const isError = session?.user?.email;
   if (session && !isError?.includes("error")) {
     return {

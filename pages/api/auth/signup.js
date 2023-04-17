@@ -1,58 +1,54 @@
-import { connectMongo } from "../../../db/connectDb";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 
-import User from "../../../db/models/User";
-
-import MonthlyFinance from "../../../db/models/MonthlyFinance";
-import DailyFinance from "../../../db/models/DailyFinance";
-import Dept from "../../../db/models/Dept";
-import Report from "../../../db/models/Report";
+import Employee from "../../../db/models/Employee";
+import { connectMongo } from "../../../db/connectDb";
 
 import { hash } from "bcryptjs";
+import { generateRandomColor, generateString } from "../../../utils/helper";
 
 async function handler(req, res) {
   //Only POST mothod is accepted
   if (req.method === "POST") {
     //Getting email and password from body
-    const { email, password, name } = req.body;
-    const errors = [];
+    let { email, password, code, name, fullName, phoneNumber } = req.body;
+    let role = name.toLowerCase();
+
     //Validate
-    if (!email || !password) {
-      errors.push("Всички полета трябва да бъдат попълнени");
+    if (!email || !password || !fullName || !phoneNumber) {
+      return res.json({ error: "Всички полета трябва да бъдат попълнени" });
     }
 
     //Connect with database
     await connectMongo();
     //Check existing
-    const checkExisting = await User.findOne({ email });
+    const totalEmployee = await Employee.count();
+    const checkExisting = await Employee.findOne({ email });
+
     //Send error response if duplicate user is found
     if (checkExisting) {
-      errors.push("Вече съществува такъв и-мейл");
+      return res.json({ error: "Вече съществува такъв и-мейл" });
+    }
+    if (role == "boss") {
+      code = generateString(6);
+      // code = "123";
+      const isFound = await Employee.findOne({ invCode: code, role: "boss" });
+      console.log(isFound);
     }
 
-    if (errors.length > 0) {
-      mongoose.connection.close();
-      return res.status(406).json(errors);
-    }
+    const color = generateRandomColor(totalEmployee + 1);
 
-    const monthlyFinance = await MonthlyFinance.create({});
-    const dailyFinance = await DailyFinance.create({});
-    const dept = await Dept.create({});
-    const report = await Report.create({});
-
-    await User.create({
+    await Employee.create({
       email,
       password: await hash(password, 12),
-      monthlyFinance: monthlyFinance._id,
-      dailyFinance: dailyFinance._id,
-      dept: dept._id,
-      report: report._id,
+      role,
+      invCode: code,
+      fullName,
+      phoneNumber,
+      color,
     });
 
-    return res
-      .status(201)
-      .json({ message: "Успешно изпратена заявка", isErr: false });
+    return res.json({ message: "Добре дошли!" });
     //Send success response
     //Close DB connection
   } else {

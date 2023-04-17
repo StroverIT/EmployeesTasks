@@ -10,6 +10,7 @@ import Employee from "../../components/indexComp/Employee";
 // Mongodb
 import { connectMongo } from "../../db/connectDb";
 import { default as EmployeeDb } from "../../db/models/Employee";
+import { getSession } from "next-auth/react";
 
 export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
   return (
@@ -31,7 +32,7 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
 
         {/* Creating a employee */}
         <section className="grid grid-cols-1 gap-10 mt-16 md:grid-cols-2">
-          <CreateEmployee />
+          {/* <CreateEmployee /> */}
           {totalEmployeeLength > 0 && <CreateTask namesAndIds={namesAndIds} />}
           {totalEmployeeLength > 0 && (
             <TopFiveForMonth namesAndIds={namesAndIds} />
@@ -58,14 +59,26 @@ export default function Home({ totalEmployeeLength, namesAndIds, employees }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { query } = context;
+  const session = await getSession({ req: context.req });
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   await connectMongo();
   const totalEmployeeLength = await EmployeeDb.count();
-  const employees = await EmployeeDb.find({});
+  let employees = await EmployeeDb.find({});
+  employees = employees.filter((employee) => employee.role != "boss");
 
   const namesAndIds = employees.map((employee) => {
     return { name: employee.fullName, _id: employee._id };
   });
+
   return {
     props: {
       totalEmployeeLength: JSON.parse(JSON.stringify(totalEmployeeLength)),

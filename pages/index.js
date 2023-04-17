@@ -81,6 +81,7 @@ export default function Home() {
               onChange={inputHandler}
               value={loginInputs.password}
             />
+
             <Button
               text="Вход"
               className="w-full col-span-1 row-start-4 max-lg:mt-5"
